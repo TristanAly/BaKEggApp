@@ -13,11 +13,13 @@ struct CountdownView: View {
     
     @State var boiled : Egg
     @State var second = 60
+    @State var playAnim = false
     @State var play = false
     @State var reset = false
     var timer = Timer.publish(every: 1.0, on: .main, in: .common).autoconnect()
     @State var cancel = Cancellable?(nil)
 @State  var player: AVAudioPlayer! = nil
+    @State private var value = 30
     
     
     var body: some View {
@@ -27,11 +29,15 @@ struct CountdownView: View {
             VStack{
                 Text(boiled.name)
                     .font(.largeTitle)
-                
+                VStack{
                 Image(boiled.image)
                     .resizable()
                     .frame(width: 300, height: 380, alignment: .center)
                     .shadow(color: .orange.opacity(0.7), radius: 6, x: 0, y: 1)
+//                    .rotationEffect(.degrees( playAnim ? 5 : 0))
+            }
+                .rotationEffect(.degrees( playAnim ? 5 : 0))
+                .animation( playAnim ? Animation.default.repeatForever(autoreverses: true).speed(2) : Animation.default)
                 
                 
                 Text("\(boiled.cooking) s")
@@ -47,7 +53,8 @@ struct CountdownView: View {
                 HStack{
                     Spacer()
                     Button {
-                        play = true
+                        play.toggle()
+                        playAnim.toggle()
                     } label: {
                         Image(systemName: play ? "pause.fill" : "play.fill")
                             .font(.largeTitle)
@@ -59,6 +66,7 @@ struct CountdownView: View {
                     Button {
                         play = false
                         reset = true
+                        playAnim = false
                         if reset {
                             player?.stop()
                             switch boiled.name {
@@ -86,6 +94,15 @@ struct CountdownView: View {
             .padding()
         }
     }
+}
+struct CountdownView_Previews: PreviewProvider {
+    static var previews: some View {
+        CountdownView(boiled: eggCooking[0])
+    }
+}
+
+private extension CountdownView{
+  
     func UpdateEgg() {
         if boiled.cooking > 0 && play {
             boiled.cooking -= 1
@@ -96,10 +113,5 @@ struct CountdownView: View {
         player = try! AVAudioPlayer(contentsOf: url!)
         player.play()
     }
-}
-
-struct CountdownView_Previews: PreviewProvider {
-    static var previews: some View {
-        CountdownView(boiled: eggCooking[0])
-    }
+    
 }
