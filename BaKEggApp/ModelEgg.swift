@@ -16,7 +16,7 @@ struct Egg: Identifiable {
 }
 
 var eggCooking = [
-Egg(cooking: 300, name: "Soft", image: "Soft"),
+Egg(cooking: 3, name: "Soft", image: "Soft"),
 Egg(cooking: 480, name: "Medium", image: "Medium"),
 Egg(cooking: 720, name: "Hard", image: "Hard"),
 ]

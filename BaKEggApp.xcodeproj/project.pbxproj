@@ -14,6 +14,7 @@
 		629C3D0028A0453E0065B0CE /* alarm_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 629C3CFF28A0453E0065B0CE /* alarm_sound.mp3 */; };
 		629C3D0228A045720065B0CE /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629C3D0128A045710065B0CE /* HomeView.swift */; };
 		629C3D0428A050830065B0CE /* CountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629C3D0328A050830065B0CE /* CountdownView.swift */; };
+		62A1468928A24FAB0042E414 /* TestAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A1468828A24FAB0042E414 /* TestAudio.swift */; };
 		62C3158828A110D80016BAD3 /* ModelEgg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C3158728A110D80016BAD3 /* ModelEgg.swift */; };
 /* End PBXBuildFile section */
 
@@ -26,6 +27,7 @@
 		629C3CFF28A0453E0065B0CE /* alarm_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alarm_sound.mp3; sourceTree = "<group>"; };
 		629C3D0128A045710065B0CE /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		629C3D0328A050830065B0CE /* CountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownView.swift; sourceTree = "<group>"; };
+		62A1468828A24FAB0042E414 /* TestAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAudio.swift; sourceTree = "<group>"; };
 		62C3158728A110D80016BAD3 /* ModelEgg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelEgg.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -64,6 +66,7 @@
 				629C3CF328A0440D0065B0CE /* ContentView.swift */,
 				629C3D0128A045710065B0CE /* HomeView.swift */,
 				629C3D0328A050830065B0CE /* CountdownView.swift */,
+				62A1468828A24FAB0042E414 /* TestAudio.swift */,
 				62C3158728A110D80016BAD3 /* ModelEgg.swift */,
 				629C3CF528A044110065B0CE /* Assets.xcassets */,
 				629C3CF728A044110065B0CE /* Preview Content */,
@@ -154,6 +157,7 @@
 				629C3CF428A0440D0065B0CE /* ContentView.swift in Sources */,
 				629C3D0428A050830065B0CE /* CountdownView.swift in Sources */,
 				629C3CF228A0440D0065B0CE /* BaKEggAppApp.swift in Sources */,
+				62A1468928A24FAB0042E414 /* TestAudio.swift in Sources */,
 				62C3158828A110D80016BAD3 /* ModelEgg.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

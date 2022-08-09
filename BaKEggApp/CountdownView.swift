@@ -7,15 +7,17 @@
 
 import SwiftUI
 import Combine
+import AVFoundation
 
 struct CountdownView: View {
     
     @State var boiled : Egg
-    
+    @State var second = 60
     @State var play = false
     @State var reset = false
     var timer = Timer.publish(every: 1.0, on: .main, in: .common).autoconnect()
     @State var cancel = Cancellable?(nil)
+@State  var player: AVAudioPlayer! = nil
     
     
     var body: some View {
@@ -35,19 +37,47 @@ struct CountdownView: View {
                 Text("\(boiled.cooking) s")
                     .onReceive(timer) {_ in
                         UpdateEgg()
+                        if boiled.cooking == 0 && play {
+                            playSound()
+                            print("play")
+                        }
                     }
                     .font(.system(size: 45))
                 
                 HStack{
                     Spacer()
                     Button {
-                        play.toggle()
+                        play = true
                     } label: {
                         Image(systemName: play ? "pause.fill" : "play.fill")
                             .font(.largeTitle)
                             .foregroundColor(.white)
                             .padding()
-                            .background(Circle().fill(.blue))
+                            .background(Circle().fill(.blue).frame(width: 65, height: 65))
+                    }
+                    Spacer()
+                    Button {
+                        play = false
+                        reset = true
+                        if reset {
+                            player?.stop()
+                            switch boiled.name {
+                            case "Soft":
+                                boiled.cooking = 3
+                            case "Medium":
+                                boiled.cooking = 480
+                            case "Hard":
+                                boiled.cooking = 720
+                            default:
+                                boiled.cooking = 0
+                            }
+                        }
+                    } label: {
+                        Image(systemName: boiled.cooking > 0 ? "arrow.clockwise" : "stop.fill" )
+                            .font(.title)
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Circle().fill(.blue).frame(width: 65, height: 65))
                     }
                     Spacer()
                     
@@ -59,11 +89,13 @@ struct CountdownView: View {
     func UpdateEgg() {
         if boiled.cooking > 0 && play {
             boiled.cooking -= 1
-        }else {
-            play = false
         }
     }
-    
+    func playSound() {
+        let url = Bundle.main.url(forResource: "alarm_sound", withExtension: "mp3")
+        player = try! AVAudioPlayer(contentsOf: url!)
+        player.play()
+    }
 }
 
 struct CountdownView_Previews: PreviewProvider {
