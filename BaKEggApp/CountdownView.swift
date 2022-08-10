@@ -18,9 +18,8 @@ struct CountdownView: View {
     @State var reset = false
     var timer = Timer.publish(every: 1.0, on: .main, in: .common).autoconnect()
     @State var cancel = Cancellable?(nil)
-@State  var player: AVAudioPlayer! = nil
-    @State private var value = 30
-    
+    @State  var player: AVAudioPlayer! = nil
+    @State var angle = 5
     
     var body: some View {
         ZStack{
@@ -30,14 +29,43 @@ struct CountdownView: View {
                 Text(boiled.name)
                     .font(.largeTitle)
                 VStack{
-                Image(boiled.image)
-                    .resizable()
-                    .frame(width: 300, height: 380, alignment: .center)
-                    .shadow(color: .orange.opacity(0.7), radius: 6, x: 0, y: 1)
-//                    .rotationEffect(.degrees( playAnim ? 5 : 0))
+                    ZStack{
+                        if  boiled.cooking == 0 {
+                            Image(boiled.image)
+                                .resizable()
+                                .frame(width: 300, height: 380, alignment: .center)
+                                .shadow(color: .orange.opacity(0.7), radius: 6, x: 0, y: 1)
+                        } else if boiled.cooking < 100 {
+                            EggImage1(angle: 5)
+//                            withAnimation{
+//                            Image("egg1")
+//                            .resizable()
+//                            .frame(width: 310, height: 400, alignment: .center)
+//                            .rotationEffect(.degrees(Double(angle)))
+//                            .animateForever(autoreverses: true, { angle = 0})
+//                            }
+                        }  else if boiled.cooking < 175 {
+                            withAnimation{
+                                Image("egg3")
+                                .resizable()
+                                .frame(width: 310, height: 400, alignment: .center)
+                                .rotationEffect(.degrees(Double(angle)))
+                                .animateForever(autoreverses: true, { angle = 0})
+                            }
+                        }
+                        else if boiled.cooking < 250 {
+                            
+                            EggImage(angle: 5)
+                            
+                        } else {
+                            Image("egg")
+                            .resizable()
+                            .frame(width: 310, height: 385, alignment: .center)
+                            .rotationEffect(.degrees( playAnim ? 5 : 0))
+                            .animation( playAnim ? Animation.default.repeatForever(autoreverses: true).speed(2) : Animation.default)
+                        }
+                    }
             }
-                .rotationEffect(.degrees( playAnim ? 5 : 0))
-                .animation( playAnim ? Animation.default.repeatForever(autoreverses: true).speed(2) : Animation.default)
                 
                 
                 Text("\(boiled.cooking) s")
@@ -71,7 +99,7 @@ struct CountdownView: View {
                             player?.stop()
                             switch boiled.name {
                             case "Soft":
-                                boiled.cooking = 3
+                                boiled.cooking = 300
                             case "Medium":
                                 boiled.cooking = 480
                             case "Hard":
@@ -114,4 +142,42 @@ private extension CountdownView{
         player.play()
     }
     
+    
+}
+extension View {
+    func animateForever(animation: Animation = .default.speed(2), autoreverses: Bool = false, _ action: @escaping () -> Void) -> some View {
+        let repeated = animation.repeatForever(autoreverses: autoreverses)
+
+        return onAppear {
+            withAnimation(repeated) {
+                action()
+            }
+        }
+    }
+}
+
+struct EggImage: View {
+    
+    @State var angle = 5
+    
+    var body: some View {
+        Image("egg2")
+        .resizable()
+        .frame(width: 310, height: 400, alignment: .center)
+        .rotationEffect(.degrees(Double(angle)))
+        .animateForever(autoreverses: true, { angle = 0})
+    }
+}
+
+struct EggImage1: View {
+    
+    @State var angle = 5
+    
+    var body: some View {
+        Image("egg1")
+        .resizable()
+        .frame(width: 310, height: 400, alignment: .center)
+        .rotationEffect(.degrees(Double(angle)))
+        .animateForever(autoreverses: true, { angle = 0})
+    }
 }
