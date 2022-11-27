@@ -23,13 +23,12 @@ struct HomeView: View {
                             NavigationLink{
                                 CountdownView(boiled: cook)
                             } label: {
-                                ChooseEgg(boiled: cook)
+                                ChooseEggView(boiled: cook)
                             }
                         }
                     }
                     Spacer()
                 }
-                
             }
         }
     }
@@ -38,21 +37,6 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
-    }
-}
-
-struct ChooseEgg : View{
-    var boiled : Egg
-    
-    var body: some View {
-        
-        VStack{
-            Image(boiled.image)
-                .resizable()
-                .frame(maxWidth: 120,maxHeight: 170)
-            Text(boiled.name)
-                .foregroundColor(.black)
-        }
     }
 }
 

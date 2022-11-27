@@ -1,5 +1,5 @@
 //
-//  TestAudio.swift
+//  AudioView.swift
 //  BaKEggApp
 //
 //  Created by Tristan Aly on 09/08/2022.
@@ -8,7 +8,7 @@
 import SwiftUI
 import AVKit
 
-struct TestAudio: View {
+struct AudioView: View {
     @State var audioPlayer: AVAudioPlayer! = nil
     var body: some View {
         ZStack {
@@ -42,8 +42,8 @@ struct TestAudio: View {
     }
 }
 
-struct TestAudio_Previews: PreviewProvider {
+struct AudioView_Previews: PreviewProvider {
     static var previews: some View {
-        TestAudio()
+        AudioView()
     }
 }
